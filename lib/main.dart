@@ -124,54 +124,53 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            Container(
-              width: MediaQuery.of(context).size.width,
-              //height: 38,
-              margin: EdgeInsets.all(10.0),
-              padding: EdgeInsets.only(left: 15.0),
-              decoration: BoxDecoration(
-                color: Colors.grey.shade100,
-                borderRadius: BorderRadius.circular(5.0),
-              ),
-              //آیکون سرچ
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width / 2,
-                    margin: EdgeInsets.only(right: 10.0),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width,
+                margin: EdgeInsets.all(10.0),
+                padding: EdgeInsets.only(left: 15.0),
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+                //آیکون سرچ
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width / 2,
+                      margin: EdgeInsets.only(right: 10.0),
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                        ),
+                        cursorColor: Colors.grey,
+                        onChanged: (value) {
+                          searchText = value;
+                          Search(value);
+                        },
+                        cursorRadius: Radius.circular(5),
                       ),
-                      cursorColor: Colors.grey,
-                      onChanged: (value) {
-                        searchText = value;
-                        Search(value);
-                      },
-                      cursorRadius: Radius.circular(5),
-                      //controller: _controller5,
                     ),
-                  ),
-                  IconButton(
-                      icon: Icon(Icons.arrow_downward),
-                      onPressed: () {
-                        cardsList.sort((a, b) => a.title.compareTo(b.title));
-                        setState(() {});
-                      }),
-                  Icon(
-                    Icons.search,
-                  ),
-                ],
+                    IconButton(
+                        icon: Icon(Icons.arrow_downward),
+                        onPressed: () {
+                          cardsList.sort((a, b) => a.title.compareTo(b.title));
+                          setState(() {});
+                        }),
+                    Icon(
+                      Icons.search,
+                    ),
+                  ],
+                ),
               ),
-            ),
-            SingleChildScrollView(
-              child: Container(
+              Container(
                 height: MediaQuery.of(context).size.height - 100,
                 width: MediaQuery.of(context).size.width,
                 child: ListView(
+                  shrinkWrap: true,
                   children: cardsList
                       .map((e) => Card(
                               child: Column(
@@ -211,8 +210,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       .toList(),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
