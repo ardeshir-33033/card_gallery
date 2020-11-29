@@ -23,86 +23,105 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String searchText = "";
-  List<Gallery> cardsList = List<Gallery>();
-  Gallery gallery = Gallery(
-    title: 'aaard Title',
-    subtitle: 'Card Subtitle',
-    icon: Icons.widgets,
-    picUrl: 'assets/images/burger.jpg',
-    description:
-        'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.',
-    buttonBar: ButtonBar(
-      children: [
-        FlatButton(
-          textColor: const Color(0xFF6200EE),
-          onPressed: () {
-            // Perform some action
-          },
-          child: const Text('ACTION 1'),
-        ),
-        FlatButton(
-          textColor: const Color(0xFF6200EE),
-          onPressed: () {
-            // Perform some action
-          },
-          child: const Text('ACTION 2'),
-        ),
-      ],
+  List<Gallery> cardsList1;
+  List<Gallery> cardsList = [
+    Gallery(
+      title: 'Aaard Title',
+      subtitle: 'Card Subtitle',
+      icon: Icons.widgets,
+      picUrl: 'assets/images/burger.jpg',
+      description:
+          'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.',
+      buttonBar: ButtonBar(
+        children: [
+          FlatButton(
+            textColor: const Color(0xFF6200EE),
+            onPressed: () {
+              // Perform some action
+            },
+            child: const Text('ACTION 1'),
+          ),
+          FlatButton(
+            textColor: const Color(0xFF6200EE),
+            onPressed: () {
+              // Perform some action
+            },
+            child: const Text('ACTION 2'),
+          ),
+        ],
+      ),
     ),
-  );
-  Gallery gallery1 = Gallery(
-    title: 'Cardnew',
-    subtitle: 'Card Subtitle',
-    icon: Icons.widgets,
-    picUrl: 'assets/images/burger.jpg',
-    description:
-        'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.',
-    buttonBar: ButtonBar(
-      children: [
-        FlatButton(
-          textColor: const Color(0xFF6200EE),
-          onPressed: () {
-            // Perform some action
-          },
-          child: const Text('ACTION 1'),
-        ),
-        FlatButton(
-          textColor: const Color(0xFF6200EE),
-          onPressed: () {
-            // Perform some action
-          },
-          child: const Text('ACTION 2'),
-        ),
-      ],
+    Gallery(
+      title: 'Baard Title',
+      subtitle: 'Card Subtitle',
+      icon: Icons.widgets,
+      picUrl: 'assets/images/burger.jpg',
+      description:
+          'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.',
+      buttonBar: ButtonBar(
+        children: [
+          FlatButton(
+            textColor: const Color(0xFF6200EE),
+            onPressed: () {
+              // Perform some action
+            },
+            child: const Text('ACTION 1'),
+          ),
+          FlatButton(
+            textColor: const Color(0xFF6200EE),
+            onPressed: () {
+              // Perform some action
+            },
+            child: const Text('ACTION 2'),
+          ),
+        ],
+      ),
     ),
-  );
+    Gallery(
+      title: 'Cardnew',
+      subtitle: 'Card Subtitle',
+      icon: Icons.widgets,
+      picUrl: 'assets/images/burger.jpg',
+      description:
+          'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.',
+      buttonBar: ButtonBar(
+        children: [
+          FlatButton(
+            textColor: const Color(0xFF6200EE),
+            onPressed: () {
+              // Perform some action
+            },
+            child: const Text('ACTION 1'),
+          ),
+          FlatButton(
+            textColor: const Color(0xFF6200EE),
+            onPressed: () {
+              // Perform some action
+            },
+            child: const Text('ACTION 2'),
+          ),
+        ],
+      ),
+    )
+  ];
 
   void Search(String _text) {
-    // if (_text.isEmpty) {
-    //   selectedBrandsList =
-    //       RegisterBusiness().getBrands().map((e) => e).toList();
-    // } else {
+    if(_text != null){
+      cardsList = cardsList1;
+    }
     cardsList =
         cardsList.where((element) => element.title.contains(_text)).toList();
-    // = RegisterBusiness()
-    //     .getBrands()
-    //     .where((element) =>
-    // element.persianName.contains(_text) ||
-    //     (element.madeInContry != null &&
-    //         element.madeInContry.contains(_text)))
-    //     .toList();
-    //}
 
     setState(() {});
   }
-  void cardSort(){
-    cardsList.where((element) => element.title.sort);
+  @override
+  void initState() {
+    super.initState();
+    cardsList1 = cardsList;
   }
 
   @override
   Widget build(BuildContext context) {
-    cardsList.add(gallery);
-    cardsList.add(gallery1);
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -139,7 +158,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   IconButton(
                       icon: Icon(Icons.arrow_downward),
                       onPressed: () {
-                        cardsList.sort();
+                        cardsList.sort((a, b) => a.title.compareTo(b.title));
+                        setState(() {});
                       }),
                   Icon(
                     Icons.search,
@@ -147,82 +167,49 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
             ),
-            Container(
-              height: 400,
-              width: MediaQuery.of(context).size.width,
-              child: ListView(
-                children: cardsList
-                    .map((e) => Card(
-                            child: Column(
-                          children: [
-                            ListTile(
-                              leading: Icon(e.icon),
-                              title: Text(e.title),
-                              subtitle: Text(
-                                e.subtitle,
-                                style: TextStyle(
-                                  color: Colors.black.withOpacity(0.6),
+            SingleChildScrollView(
+              child: Container(
+                height: MediaQuery.of(context).size.height - 100,
+                width: MediaQuery.of(context).size.width,
+                child: ListView(
+                  children: cardsList
+                      .map((e) => Card(
+                              child: Column(
+                            children: [
+                              ClipRRect(
+                                  borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(5.0),
+                                      topLeft: Radius.circular(5.0)),
+                                  child: Image(
+                                      image: AssetImage(e.picUrl),
+                                      fit: BoxFit.cover,
+                                      height: 200,
+                                      width:
+                                          MediaQuery.of(context).size.width)),
+                              ListTile(
+                                leading: Icon(e.icon),
+                                title: Text(e.title),
+                                subtitle: Text(
+                                  e.subtitle,
+                                  style: TextStyle(
+                                    color: Colors.black.withOpacity(0.6),
+                                  ),
                                 ),
                               ),
-                            ),
-                            Image(image: AssetImage(e.picUrl)),
-                            Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Text(
-                                e.description,
-                                textDirection: TextDirection.rtl,
-                                style: TextStyle(
-                                    color: Colors.black.withOpacity(0.6)),
+                              Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Text(
+                                  e.description,
+                                  textDirection: TextDirection.rtl,
+                                  style: TextStyle(
+                                      color: Colors.black.withOpacity(0.6)),
+                                ),
                               ),
-                            ),
-                            e.buttonBar,
-                          ],
-                        )))
-                    .toList(),
-                // Card(
-                //   child: Column(
-                //     children: [
-                //       ListTile(
-                //         leading: Icon(gallery.icon ?? Icons.widgets),
-                //         title: Text(gallery.title  ?? 'Card Title'),
-                //         subtitle: Text(
-                //           gallery.subtitle ?? 'Card Subtitle',
-                //           style: TextStyle(color: Colors.black.withOpacity(0.6)),
-                //         ),
-                //       ),
-                //       Image(
-                //         image: AssetImage(gallery.picUrl ?? 'assets/images/burger.jpg'),
-                //       ),
-                //       Padding(
-                //         padding: const EdgeInsets.all(16.0),
-                //         child: Text(gallery.picUrl ??
-                //           'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.',
-                //           textDirection: TextDirection.rtl,
-                //           style: TextStyle(color: Colors.black.withOpacity(0.6) ),
-                //         ),
-                //       ),
-                //       gallery.buttonBar ??
-                //       ButtonBar(
-                //         children: [
-                //           FlatButton(
-                //             textColor: const Color(0xFF6200EE),
-                //             onPressed: () {
-                //               // Perform some action
-                //             },
-                //             child: const Text('ACTION 1'),
-                //           ),
-                //           FlatButton(
-                //             textColor: const Color(0xFF6200EE),
-                //             onPressed: () {
-                //               // Perform some action
-                //             },
-                //             child: const Text('ACTION 2'),
-                //           ),
-                //         ],
-                //       )
-                //     ],
-                //   ),
-                // ),
+                              e.buttonBar,
+                            ],
+                          )))
+                      .toList(),
+                ),
               ),
             ),
           ],
