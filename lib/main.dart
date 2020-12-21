@@ -106,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
 
   void Search(String _text) {
-    if(_text != null){
+    if (_text != null) {
       cardsList = cardsList1;
     }
     cardsList =
@@ -114,6 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     setState(() {});
   }
+
   @override
   void initState() {
     super.initState();
@@ -176,15 +177,15 @@ class _MyHomePageState extends State<MyHomePage> {
                               child: Column(
                             children: [
                               ClipRRect(
-                                  borderRadius: BorderRadius.only(
-                                      topRight: Radius.circular(5.0),
-                                      topLeft: Radius.circular(5.0)),
-                                  child: Image(
-                                      image: AssetImage(e.picUrl),
-                                      fit: BoxFit.cover,
-                                      height: 200,
-                                      width:
-                                          MediaQuery.of(context).size.width)),
+                                borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(5.0),
+                                    topLeft: Radius.circular(5.0)),
+                                child: Image(
+                                    image: AssetImage(e.picUrl),
+                                    fit: BoxFit.cover,
+                                    height: 200,
+                                    width: MediaQuery.of(context).size.width),
+                              ),
                               ListTile(
                                 leading: Icon(e.icon),
                                 title: Text(e.title),
